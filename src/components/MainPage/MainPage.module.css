@@ -1,0 +1,23 @@
+.landingPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.centeredContent {
+    text-align: center;
+}
+
+.centeredContent h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    letter-spacing: 13px;
+    font-weight: 500;
+}
+
+.centeredContent h3 {
+    font-size: 1.5rem;
+    color: #777;
+    font-weight: 400;
+}

@@ -1,7 +1,9 @@
 import './App.css';
-import {useState, useEffect} from "react";
-import Launches from "./components/Launches";
-import {Button, Container} from "@mui/material";
+import { useState, useEffect } from "react";
+import Launches from "./components/Launches/Launches";
+import { Container, Pagination } from "@mui/material";
+import MainPage from './components/MainPage/MainPage';
+import LaunchesSkeleton from './components/Launches/LoadingLaunches';
 
 function App() {
 
@@ -10,7 +12,7 @@ function App() {
     const apiUrl = 'https://api.spacexdata.com/v4/launches/query';
 
     function getQueryBody(pageNumber) {
-        return  {
+        return {
             query: {
                 upcoming: false,
                 success: true
@@ -115,36 +117,46 @@ function App() {
         fetchData(currentPage);
     }, []);
 
-    const nextPage = () => {
-        setCurrentPage(currentPage + 1)
-        fetchData(currentPage + 1)
+    const handlePageChange = (newPage) => {
+        fetchData(newPage)
+        setCurrentPage(newPage);
     }
-    const prevPage = () => {
-        setCurrentPage(currentPage - 1)
-        fetchData(currentPage - 1)
-    }
+
 
     return (
-        <div>
+        <>
+            <div className='backgroundMain'>
+                <div className='half-circle-blue' />
+                <div className='half-circle-white' />
+                <div className='gradient' />
+                <MainPage />
+            </div>
 
-            <Container>
-                <p>Total Launches: {data["totalDocs"]}</p>
-                {data["docs"] ? (
-                    <div>
-                        <Launches launches={data["docs"]}/>
-                        <p>Page {data["page"]} / {data["totalPages"]} </p>
-                        <Button variant="outlined" onClick={prevPage} disabled={currentPage === 1}>Prev Page</Button>
-                        <Button variant="outlined" onClick={nextPage} disabled={currentPage === data["totalPages"]}>Next
-                           Page</Button>
+            <section className='backgroundLaunches' id='launches'>
+                <div className='allLaunches'>
+                    <p>Total Launches: {data["totalDocs"]}</p>
+                    <Pagination
+                        count={data["totalPages"]}
+                        color="primary"
+                        variant="outlined"
+                        page={currentPage}
+                        onChange={(event, newPage) => handlePageChange(newPage)}
+                        showFirstButton
+                        showLastButton
+                    />
+                </div>
+                <Container>
+                    {data["docs"] ? (
 
-                   </div>
-                ) : (
-                    <div>Loading...</div>
-                )}
-
-            </Container>
-
-        </div>
+                        <div>
+                            <Launches launches={data["docs"]} />
+                        </div>
+                    ) : (
+                        <LaunchesSkeleton />
+                    )}
+                </Container>
+            </section>
+        </>
     );
 }
 export default App;
