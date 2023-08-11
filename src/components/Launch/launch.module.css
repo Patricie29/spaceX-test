@@ -87,6 +87,8 @@
 
 
 
+/* MEDIA QUERIES */
+
 @media screen and (max-width: 575px) {
     .card:hover {
         border: none;
