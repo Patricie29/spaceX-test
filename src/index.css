@@ -30,3 +30,16 @@ a {
 .MuiPagination-ul {
   justify-content: center;
 }
+
+
+@media screen and (max-width: 575px) {
+  .MuiPagination-ul button {
+    padding: 0;
+    margin: 0;
+  }
+
+  .MuiPagination-ul .MuiPaginationItem-root {
+    padding: 0;
+    margin: 0;
+  }
+}
