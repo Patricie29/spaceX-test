@@ -8,6 +8,8 @@
 
   background: rgba(0, 86, 172, 0.65);
   filter: blur(170px);
+
+  -webkit-filter: blur(135px);
   transform: rotate(-114.2deg);
 }
 
